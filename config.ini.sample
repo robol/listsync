@@ -1,18 +1,23 @@
-[source]
-name = web-dm
-module = json
-url = https://api.example.com/people
+[dottorandi]
+module = wordpress
+url = https://www.dm.unipi.it/wp-json/wp/v2/people?typology=14
 
-[target]
-name = math-list
+[coordinatore-dottorato]
+module = wordpress
+url = https://www.dm.unipi.it/wp-json/wp/v2/people?typology=9
+
+[consiglio-dottorato]
+module = static
+emails = coord_mat@dm.unipi.it, other@gmail.com, secondary@outlook.com
+
+[math-list]
 module = mailman3
 user = xxxxxxxxxxxx
 password = xxxxxxxxxx
-url = http://192.168.0.10:8001
+url = http://localhost:8001
 
-[list]
-source = web-dm
-target = math-list
-name = name.lists.dm.unipi.it 
-
+[dottorandi.lists.dm.unipi.it]
+module = list
+sources = dottorandi, consiglio-dottorato
+server = math-list
 

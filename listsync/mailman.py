@@ -23,8 +23,8 @@ class MailmanServer():
         data = self._make_request("members/find", {
             "list_id": list_name
         })
-        
-        return [ user["email"] for user in data["entries"] ]
+
+        return [ user["email"] for user in data["entries"] if user['role'] == 'member' ]
 
     def add_member(self, list_name, email_address):
         return True
