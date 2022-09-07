@@ -1,0 +1,18 @@
+[source]
+name = web-dm
+module = json
+url = https://api.example.com/people
+
+[target]
+name = math-list
+module = mailman3
+user = xxxxxxxxxxxx
+password = xxxxxxxxxx
+url = http://192.168.0.10:8001
+
+[list]
+source = web-dm
+target = math-list
+name = name.lists.dm.unipi.it 
+
+
