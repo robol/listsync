@@ -1,10 +1,9 @@
 #
-# ListSync script -- this script synchronizes mailing list users from different 
-# sources. 
+# ListSync script -- this script synchronizes mailing list users from different
+# sources.
 
 import sys, traceback, time, argparse
 
-from sympy import Interval
 from listsync.server import Instance
 
 if __name__ == "__main__":
@@ -18,10 +17,10 @@ if __name__ == "__main__":
         const=True, default=False,
         help='print a detailed log of the server operation')
 
-    parser.add_argument('--interval', dest = 'interval', type = int, 
+    parser.add_argument('--interval', dest = 'interval', type = int,
         help = 'number of minutes to wait between updates', default = 30)
 
-    args = parser.parse_args()    
+    args = parser.parse_args()
     interval = args.interval * 60
 
     config_file = args.config
@@ -40,4 +39,3 @@ if __name__ == "__main__":
             time.sleep(interval)
         except KeyboardInterrupt:
             sys.exit(0)
-        
