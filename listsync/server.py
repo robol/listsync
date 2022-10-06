@@ -68,7 +68,7 @@ class Instance():
                 raise RuntimeError("Please provide a module for the section %s" % name)
 
             if s['module'] == 'json':
-                self._sources[name] = JsonSource(s['url'], s.get('user', None), s.get('password', None))
+                self._sources[name] = JsonSource(s['url'], s.get('key', None), s.get('api_key', None))
             elif s['module'] == 'wordpress':
                 self._sources[name] = WordpressSource(s['url'], s['filter'] if 'filter' in s.keys() else None)
             elif s['module'] == 'static':

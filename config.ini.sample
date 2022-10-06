@@ -10,6 +10,12 @@ url = https://www.dm.unipi.it/wp-json/wp/v2/people?typology=9
 module = static
 emails = coord_mat@dm.unipi.it, other@gmail.com, secondary@outlook.com
 
+[studenti]
+module = json
+key = students
+url = https://studenti.caps.dm.unipi.it/students
+api_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 [math-list]
 module = mailman3
 user = xxxxxxxxxxxx
@@ -19,5 +25,10 @@ url = http://localhost:8001
 [dottorandi.lists.dm.unipi.it]
 module = list
 sources = dottorandi, consiglio-dottorato
+server = math-list
+
+[studenti.lists.dm.unipi.it]
+module = list
+sources = studenti
 server = math-list
 
