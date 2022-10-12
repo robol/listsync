@@ -13,11 +13,17 @@ class MailmanServer():
         self._user = user
         self._password = password
 
-    def _make_request(self, path, data):
-        return requests.post("%s/3.1/%s" % (self._url, path),  
+    def _make_request(self, path, data, json = True):
+        data = requests.post("%s/3.1/%s" % (self._url, path),  
             data = data,
             auth=HTTPBasicAuth(self._user, self._password)
-        ).json()
+        )
+
+        if json:
+            return data.json()
+        else:
+            return data.text
+
 
     def get_members(self, list_name):
         data = self._make_request("members/find", {
@@ -27,6 +33,16 @@ class MailmanServer():
         return [ user["email"] for user in data["entries"] if user['role'] == 'member' ]
 
     def add_member(self, list_name, email_address):
+        data = self._make_request("members", {
+            "list_id": list_name, 
+            "subscriber": email_address, 
+            "display_name": "", 
+            "pre_verified": True, 
+            "pre_approved": True,
+            "pre_confirmed": True,
+            "send_welcome_message": False
+        }, json = False)
+
         return True
 
     def delete_member(self, list_name, email_address):

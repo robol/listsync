@@ -36,14 +36,16 @@ class Instance():
             additional_members = current_members.difference(desired_members)
 
             for member in missing_members:
-                if self._verbose:
-                    print(" > Subscribing %s" % member)
-                server.add_member(name, member)
+                if list['policy'] in [ 'subscribe', 'sync' ]:
+                    if self._verbose:
+                        print(" > Subscribing %s" % member)
+                    server.add_member(name, member)
 
             for member in additional_members:
-                if self._verbose:
-                    print(" > Unsubscribing %s" % member)
-                server.delete_member(name, member)
+                if list['policy'] in [ 'sync', 'unsubscribe' ]:
+                    if self._verbose:
+                        print(" > Unsubscribing %s" % member)
+                    server.delete_member(name, member)
 
 
     def _check_config(self):
@@ -78,5 +80,6 @@ class Instance():
             elif s['module'] == 'list':
                 self._lists[name] = {
                     'sources': [ source.strip() for source in s['sources'].split(",") ], 
-                    'server': s['server']
+                    'server': s['server'], 
+                    'policy': s['policy']
                 }

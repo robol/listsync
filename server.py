@@ -7,7 +7,6 @@ import sys, traceback, time, argparse
 from listsync.server import Instance
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description='Keep mailing list member in sync.')
 
     parser.add_argument('--config', dest='config', type=str,

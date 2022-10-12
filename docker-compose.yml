@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  listsync:
+    image: robol/listsync
+    volumes:
+      - ./config.ini:/app/config.ini
+    
