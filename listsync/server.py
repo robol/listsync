@@ -4,25 +4,23 @@ from listsync.json import JsonSource
 from listsync.mailman import MailmanServer
 from listsync.static import StaticSource
 from listsync.wordpress import WordpressSource
+from listsync.log import logger
 
 class Instance():
 
-    def __init__(self, config_handle, verbose = False):
+    def __init__(self, config_handle):
         self._sources = {}
         self._servers = {}
         self._lists = {}
-        self._verbose = verbose
 
-        if verbose:
-            print("Loading the configuration file")
+        logger.info("Loading the configuration file")
 
         self._parse_config(config_handle)
         self._check_config()
 
     def sync(self):
         for name, list in self._lists.items():
-            if self._verbose:
-                print("Syncing list %s" % name)
+            logger.info("Syncing list %s" % name)
 
             server = self._servers[list['server']]
             current_members = set(server.get_members(name))
@@ -37,14 +35,12 @@ class Instance():
 
             for member in missing_members:
                 if list['policy'] in [ 'subscribe', 'sync' ]:
-                    if self._verbose:
-                        print(" > Subscribing %s" % member)
+                    logger.info("Subscribing %s" % member)
                     server.add_member(name, member)
 
             for member in additional_members:
                 if list['policy'] in [ 'sync', 'unsubscribe' ]:
-                    if self._verbose:
-                        print(" > Unsubscribing %s" % member)
+                    logger.info("Unsubscribing %s" % member)
                     server.delete_member(name, member)
 
 
