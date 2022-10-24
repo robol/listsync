@@ -2,7 +2,7 @@ version: '2'
 
 services:
   listsync:
-    image: robol/listsync
+    image: harbor.cs.dm.unipi.it/listsync/listsync
     volumes:
       - ./config.ini:/app/config.ini
     

@@ -35,7 +35,7 @@ class Instance():
 
             for member in missing_members:
                 if list['policy'] in [ 'subscribe', 'sync' ]:
-                    logger.info("Subscribing %s" % member)
+                    logger.info("Subscribing %s to %s" % (member, name))
                     server.add_member(name, member)
 
             for member in additional_members:

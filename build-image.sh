@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo docker build -t registry.cs.dm.unipi.it/dm/listsync .
+sudo docker build -t harbor.cs.dm.unipi.it/listsync/listsync .

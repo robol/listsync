@@ -38,7 +38,7 @@ if __name__ == "__main__":
     while True:
         try:
             instance.sync()
-            logger.info("Sleeping, next sync will happen in %d seconds" % interval)
+            # logger.info("Sleeping, next sync will happen in %d seconds" % interval)
             time.sleep(interval)
         except KeyboardInterrupt:
             sys.exit(0)
