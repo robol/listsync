@@ -11,6 +11,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Keep mailing list member in sync.')
 
     parser.add_argument('--config', dest='config', type=str,
+        default='config.ini',
         help='configuration file for the server')
 
     parser.add_argument('--verbose', dest='verbose', action='store_const',
@@ -27,6 +28,8 @@ if __name__ == "__main__":
 
     config_file = args.config
 
+    instance = None
+
     try:
         with open(config_file, "r") as handle:
             instance = Instance(handle)
@@ -35,10 +38,13 @@ if __name__ == "__main__":
         print(traceback.format_exc())
 
     # Start the server
-    while True:
-        try:
-            instance.sync()
-            # logger.info("Sleeping, next sync will happen in %d seconds" % interval)
-            time.sleep(interval)
-        except KeyboardInterrupt:
-            sys.exit(0)
+    if instance is not None:
+        while True:
+            try:
+                instance.sync()
+                # logger.info("Sleeping, next sync will happen in %d seconds" % interval)
+                if interval == 0:
+                    break
+                time.sleep(interval)
+            except KeyboardInterrupt:
+                sys.exit(0)
