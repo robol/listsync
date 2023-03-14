@@ -13,11 +13,19 @@ class MailmanServer():
         self._user = user
         self._password = password
 
-    def _make_request(self, path, data, json = True):
-        data = requests.post("%s/3.1/%s" % (self._url, path),  
-            data = data,
-            auth=HTTPBasicAuth(self._user, self._password)
-        )
+    def _make_request(self, path, data, json = True, method = 'POST'):
+        auth = HTTPBasicAuth(self._user, self._password)
+
+        if method == 'POST':
+            data = requests.post("%s/3.1/%s" % (self._url, path),  
+                data = data, auth=auth
+            )
+        elif method == 'DELETE':
+            data = requests.delete("%s/3.1/%s" % (self._url, path),  
+                data = data, auth=auth
+            )
+        else:
+            raise RuntimeError("Unsupported method: %s" % method)
 
         if json:
             return data.json()
@@ -46,4 +54,8 @@ class MailmanServer():
         return True
 
     def delete_member(self, list_name, email_address):
+        data = self._make_request("lists/%s/roster/member" % list_name, {
+            "emails": [ email_address ]
+        }, json = False, method = 'DELETE')
+
         return True
