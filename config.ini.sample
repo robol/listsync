@@ -32,3 +32,16 @@ module = list
 sources = studenti
 server = math-list
 
+[collaboratori]
+module = json
+key = data.person.email
+url = https://manage.dm.unipi.it/api/v0/staff?_sort=person&qualification__in=Collaboratore&startDate__lt_or_null=today&endDate__gt_or_null=today
+api_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+[collaboratori.lists.dm.unipi.it]
+module = list
+sources = collaboratori
+server = dummy-server
+
+[dummy-server]
+module = dummy

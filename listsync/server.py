@@ -1,6 +1,6 @@
 import configparser
 from listsync.json import JsonSource
-
+from listsync.dummy import DummyServer
 from listsync.mailman import MailmanServer
 from listsync.static import StaticSource
 from listsync.wordpress import WordpressSource
@@ -77,5 +77,9 @@ class Instance():
                 self._lists[name] = {
                     'sources': [ source.strip() for source in s['sources'].split(",") ], 
                     'server': s['server'], 
-                    'policy': s['policy']
+                    'policy': s.get('policy', 'subscribe')
                 }
+            elif s['module'] == 'dummy':
+                self._servers[name] = DummyServer()                    
+            else:
+                raise RuntimeError("Unknown module %s" % s['module'])
