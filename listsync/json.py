@@ -27,7 +27,12 @@ class JsonSource():
 
         data = get_key(data, key_list)
 
-        data = [email for email in data if email]
+        data = get_key(data, key_list)
+
+        if isinstance(data, str):
+            data = [data]
+        else:
+            data = [email for email in data if email]
 
         return data
 
